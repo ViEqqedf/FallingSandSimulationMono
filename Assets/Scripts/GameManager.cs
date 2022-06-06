@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using FallingSandSimulation.Items;
 using UnityEngine;
 
-namespace DefaultNamespace {
+namespace FallingSandSimultion {
     public class GameManager : MonoBehaviour {
         #region 单例相关
 
@@ -25,8 +26,9 @@ namespace DefaultNamespace {
 
         public Empty emptyPrefab;
         public Water waterPrefab;
+        public Sand sandPrefab;
         public GameObject sandPoolParent;
-        private const float tickInterval = 0.5f;
+        private const float tickInterval = 0.05f;
         private float countDownTimer = 0;
         private int simulationCount = 1;
 
@@ -37,6 +39,8 @@ namespace DefaultNamespace {
 
         private void Start() {
             pool = new Pool();
+            Camera.main.transform.position =
+                new Vector3(pool.poolSize / 2f, pool.poolSize / 2f, -pool.poolSize);
         }
 
         private void Update() {
@@ -55,7 +59,7 @@ namespace DefaultNamespace {
             #region 交互相关
 
             // 点击生成沙粒
-            if (Input.GetMouseButtonUp(0)) {
+            if (Input.GetMouseButton(0)) {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit)) {
@@ -67,6 +71,25 @@ namespace DefaultNamespace {
                         int newY = Mathf.RoundToInt(hitPoint.y);
                         Vector3 createPos = new Vector3(newX, newY, 0);
                         BaseSandItem newSand = Instantiate(waterPrefab, createPos,
+                            Quaternion.identity, sandPoolParent.transform);
+                        newSand.Ctor(new SandPosition(){X = newX, Y = newY});
+                        Destroy(pool.container[newX, newY].gameObject);
+                        pool.container[newX, newY] = newSand;
+                    }
+                }
+            }
+            if (Input.GetMouseButton(1)) {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit)) {
+                    Vector3 hitPoint = hit.point;
+                    Debug.Log($"本次点击的区域是{hitPoint}");
+                    if (Mathf.Abs(hitPoint.x) < pool.poolSize + 0.5f &&
+                        Mathf.Abs(hitPoint.y) < pool.poolSize + 0.5f) {
+                        int newX = Mathf.RoundToInt(hitPoint.x);
+                        int newY = Mathf.RoundToInt(hitPoint.y);
+                        Vector3 createPos = new Vector3(newX, newY, 0);
+                        BaseSandItem newSand = Instantiate(sandPrefab, createPos,
                             Quaternion.identity, sandPoolParent.transform);
                         newSand.Ctor(new SandPosition(){X = newX, Y = newY});
                         Destroy(pool.container[newX, newY].gameObject);

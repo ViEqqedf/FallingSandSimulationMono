@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using FallingSandSimulation.Items;
 using UnityEngine;
 
-namespace DefaultNamespace {
+namespace FallingSandSimultion {
     public class Pool {
-        public readonly int poolSize = 20;
+        public readonly int poolSize = 100;
         public BaseSandItem [,] container;
 
         public Pool() {

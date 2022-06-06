@@ -263,6 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyPrefab: {fileID: 9163438223679164586, guid: 2c6d7c9750abf99418fd3f839a9f8543, type: 3}
   waterPrefab: {fileID: 4683907736044488268, guid: 2381972a7104d4a48a68c9bf604875d0, type: 3}
+  sandPrefab: {fileID: 29701500106750385, guid: 21b9e726b832aa046a53655dafef2e5e, type: 3}
   sandPoolParent: {fileID: 1068598751}
 --- !u!1 &963194225
 GameObject:

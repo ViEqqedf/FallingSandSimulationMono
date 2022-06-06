@@ -1,19 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using DefaultNamespace;
-using Items;
+using FallingSandSimultion;
 using UnityEngine;
 
-public class Empty : BaseSandItem {
-    protected override void Start() {
-        base.Start();
-    }
+namespace FallingSandSimulation.Items {
+    public class Empty : BaseSandItem {
+        protected override void Start() {
+            base.Start();
+        }
 
-    protected override void Update() {
-        base.Update();
-    }
+        protected override void Update() {
+            base.Update();
+        }
 
-    public Empty() : base(SandTypeEnum.Empty) {
+        public Empty() : base(SandTypeEnum.Empty) {
+        }
     }
 }
