@@ -43,8 +43,8 @@ namespace FallingSandSimultion {
                 new Vector3(pool.poolSize / 2f, pool.poolSize / 2f, -pool.poolSize);
         }
 
-        private void Update() {
-            countDownTimer += Time.deltaTime;
+        private void FixedUpdate() {
+            countDownTimer += Time.fixedDeltaTime;
             if (countDownTimer >= tickInterval) {
                 for (int i = pool.poolSize - 1, countX = -1; i > countX; i--) {
                     for (int j = pool.poolSize - 1, countY = -1; j > countY; j--) {
